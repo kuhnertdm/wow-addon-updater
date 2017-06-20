@@ -48,16 +48,7 @@ def confirmExit():
     exit(0)
 
 
-def getAddon(ziploc, WOW_ADDON_LOCATION):
-    if ziploc == '':
-        return
-    try:
-        r = requests.get(ziploc, stream=True)
-        z = zipfile.ZipFile(BytesIO(r.content))
-        z.extractall(WOW_ADDON_LOCATION)
-    except Exception:
-        print('Failed to download or extract zip file for addon. Skipping...\n')
-        return
+
 
 
 def findZiploc(addonpage):
@@ -79,3 +70,14 @@ class AddonUpdater:
     def __init__(self):
         self.WOW_ADDON_LOCATION = ""
         return
+
+    def getAddon(ziploc, WOW_ADDON_LOCATION):
+        if ziploc == '':
+            return
+        try:
+            r = requests.get(ziploc, stream=True)
+            z = zipfile.ZipFile(BytesIO(r.content))
+            z.extractall(WOW_ADDON_LOCATION)
+        except Exception:
+            print('Failed to download or extract zip file for addon. Skipping...\n')
+            return
