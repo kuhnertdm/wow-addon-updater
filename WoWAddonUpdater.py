@@ -73,3 +73,9 @@ def findZiploc(addonpage):
     except Exception:
         print('Failed to find downloadable zip file for addon. Skipping...\n')
         return ''
+
+
+class AddonUpdater:
+    def __init__(self):
+        self.WOW_ADDON_LOCATION = ""
+        return
