@@ -34,7 +34,7 @@ class AddonUpdater:
             confirmExit()
         return
 
-    def main(self):
+    def update(self):
 
         # Main process (yes I formatted the project badly)
 
@@ -72,7 +72,7 @@ class AddonUpdater:
 
 def main():
     addonupdater = AddonUpdater()
-    addonupdater.main()
+    addonupdater.update()
 
     return
 
