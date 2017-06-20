@@ -27,6 +27,14 @@ def main():
         print('Failed to read addon list file. Are you sure the file exists?')
         confirmExit()
 
+        # Main process (yes I formatted the project badly)
+
+    with open(ADDON_LIST_FILE, "r") as fin:
+        for line in fin:
+            print('Installing/updating addon: ' + line)
+            ziploc = findZiploc(line.rstrip('\n'))
+            getAddon(ziploc)
+
     return
 
 
@@ -65,12 +73,3 @@ def findZiploc(addonpage):
     except Exception:
         print('Failed to find downloadable zip file for addon. Skipping...\n')
         return ''
-
-
-# Main process (yes I formatted the project badly)
-
-with open(ADDON_LIST_FILE, "r") as fin:
-    for line in fin:
-        print('Installing/updating addon: ' + line)
-        ziploc = findZiploc(line.rstrip('\n'))
-        getAddon(ziploc)
