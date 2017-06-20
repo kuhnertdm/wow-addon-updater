@@ -56,9 +56,13 @@ class AddonUpdater:
             return
 
     def findZiploc(self, addonpage):
-        if not addonpage.startswith('https://mods.curse.com/addons/wow/'):
+        if addonpage.startswith('https://mods.curse.com/addons/wow/'):
+            return self.__curse(addonpage)
+        else:
             print('Invalid addon page. Make sure you are using the Curse page for the addon.')
             confirmExit()
+
+    def __curse(self, addonpage):
         try:
             page = requests.get(addonpage + '/download')
             contentString = str(page.content)
@@ -68,9 +72,6 @@ class AddonUpdater:
         except Exception:
             print('Failed to find downloadable zip file for addon. Skipping...\n')
             return ''
-
-    def __curse(self):
-        return
 
 
 def main():
