@@ -27,13 +27,13 @@ def main():
         print('Failed to read addon list file. Are you sure the file exists?')
         confirmExit()
 
-        # Main process (yes I formatted the project badly)
+    # Main process (yes I formatted the project badly)
 
     with open(ADDON_LIST_FILE, "r") as fin:
         for line in fin:
             print('Installing/updating addon: ' + line)
             ziploc = findZiploc(line.rstrip('\n'))
-            getAddon(ziploc)
+            getAddon(ziploc, WOW_ADDON_LOCATION)
 
     return
 
@@ -48,7 +48,7 @@ def confirmExit():
     exit(0)
 
 
-def getAddon(ziploc):
+def getAddon(ziploc, WOW_ADDON_LOCATION):
     if ziploc == '':
         return
     try:
