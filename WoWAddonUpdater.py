@@ -19,10 +19,6 @@ def confirmExit():
 
 class AddonUpdater:
     def __init__(self):
-        self.WOW_ADDON_LOCATION = ""
-        return
-
-    def main(self):
         print('')
 
         # Read config file
@@ -36,31 +32,34 @@ class AddonUpdater:
         config.read('config.ini')
 
         try:
-            WOW_ADDON_LOCATION = config['WOW ADDON UPDATER']['WoW Addon Location']
-            ADDON_LIST_FILE = config['WOW ADDON UPDATER']['Addon List File']
+            self.WOW_ADDON_LOCATION = config['WOW ADDON UPDATER']['WoW Addon Location']
+            self.ADDON_LIST_FILE = config['WOW ADDON UPDATER']['Addon List File']
         except Exception:
             print('Failed to parse configuration file. Are you sure it is formatted correctly?')
             confirmExit()
 
-        if not isfile(ADDON_LIST_FILE):
+        if not isfile(self.ADDON_LIST_FILE):
             print('Failed to read addon list file. Are you sure the file exists?')
             confirmExit()
+        return
+
+    def main(self):
 
         # Main process (yes I formatted the project badly)
 
-        with open(ADDON_LIST_FILE, "r") as fin:
+        with open(self.ADDON_LIST_FILE, "r") as fin:
             for line in fin:
                 print('Installing/updating addon: ' + line)
-                ziploc = findZiploc(line.rstrip('\n'))
-                getAddon(ziploc, WOW_ADDON_LOCATION)
+                ziploc = self.findZiploc(line.rstrip('\n'))
+                self.getAddon(ziploc)
 
-    def getAddon(self, ziploc, WOW_ADDON_LOCATION):
+    def getAddon(self, ziploc):
         if ziploc == '':
             return
         try:
             r = requests.get(ziploc, stream=True)
             z = zipfile.ZipFile(BytesIO(r.content))
-            z.extractall(WOW_ADDON_LOCATION)
+            z.extractall(self.WOW_ADDON_LOCATION)
         except Exception:
             print('Failed to download or extract zip file for addon. Skipping...\n')
             return
