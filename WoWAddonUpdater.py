@@ -3,15 +3,6 @@ from io import *
 from os.path import isfile
 
 
-def main():
-    return
-
-
-if __name__ == "__main__":
-    # execute only if run as a script
-    main()
-
-
 def confirmExit():
     input('\nPress the Enter key to exit')
     exit(0)
@@ -77,3 +68,15 @@ class AddonUpdater:
         except Exception:
             print('Failed to find downloadable zip file for addon. Skipping...\n')
             return ''
+
+
+def main():
+    addonupdater = AddonUpdater()
+    addonupdater.main()
+
+    return
+
+
+if __name__ == "__main__":
+    # execute only if run as a script
+    main()
