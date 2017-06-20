@@ -4,14 +4,14 @@ from os.path import isfile
 
 
 def main():
+    print('')
+
     return
 
 
 if __name__ == "__main__":
     # execute only if run as a script
     main()
-
-print('')
 
 
 def confirmExit():
