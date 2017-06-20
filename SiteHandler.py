@@ -10,6 +10,10 @@ def findZiploc(addonpage):
     elif addonpage.startswith('http://git.tukui.org/'):
         return tukui(addonpage)
 
+    # Wowinterface
+    elif addonpage.startswith('http://www.wowinterface.com/'):
+        return wowinterface(addonpage)
+
     # Invalid page
     else:
         print('Invalid addon page.')
@@ -30,3 +34,8 @@ def curse(addonpage):
 def tukui(addonpage):
     ziploc = addonpage + '/repository/archive.zip'  # TODO: Stop creating a new elvui-master folder with subfolders
     return ziploc
+
+
+def wowinterface(addonpage):
+    print('Wowinterface is not supported yet.')
+    return ''
