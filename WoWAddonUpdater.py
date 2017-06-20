@@ -10,7 +10,7 @@ def confirmExit():
 
 # Read config file
 
-if(not isfile('config.ini')):
+if not isfile('config.ini'):
 	print('Failed to read configuration file. Are you sure there is a file called "config.ini" with the "WowAddonUpdater.py" file?')
 	confirmExit()
 
@@ -24,12 +24,12 @@ except Exception:
 	print('Failed to parse configuration file. Are you sure it is formatted correctly?')
 	confirmExit()
 
-if(not isfile(ADDON_LIST_FILE)):
+if not isfile(ADDON_LIST_FILE):
 	print('Failed to read addon list file. Are you sure the file exists?')
 	confirmExit()
 
 def getAddon(ziploc):
-	if(ziploc == ''):
+	if ziploc == '':
 		return
 	try:
 		r = requests.get(ziploc, stream=True)
@@ -40,7 +40,7 @@ def getAddon(ziploc):
 		return
 
 def findZiploc(addonpage):
-	if(not addonpage.startswith('https://mods.curse.com/addons/wow/')):
+	if not addonpage.startswith('https://mods.curse.com/addons/wow/'):
 		print('Invalid addon page. Make sure you are using the Curse page for the addon.')
 		confirmExit()
 	try:
