@@ -14,5 +14,5 @@ def curse(addonpage):
 
 
 def tukui(addonpage):
-    ziploc = addonpage + '/repository/archive.zip'
+    ziploc = addonpage + '/repository/archive.zip' # TODO: Stop creating a new elvui-master folder with subfolders
     return ziploc
