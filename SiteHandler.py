@@ -11,3 +11,7 @@ def curse(addonpage):
     except Exception:
         print('Failed to find downloadable zip file for addon. Skipping...\n')
         return ''
+
+def tukui(addonpage):
+    print('Tukui is not implemented yet. Skipping...\n')
+    return ''
