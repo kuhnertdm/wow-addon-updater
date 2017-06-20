@@ -48,24 +48,6 @@ def confirmExit():
     exit(0)
 
 
-
-
-
-def findZiploc(addonpage):
-    if not addonpage.startswith('https://mods.curse.com/addons/wow/'):
-        print('Invalid addon page. Make sure you are using the Curse page for the addon.')
-        confirmExit()
-    try:
-        page = requests.get(addonpage + '/download')
-        contentString = str(page.content)
-        indexOfZiploc = contentString.find('data-href') + 11  # Will be the index of the first char of the url
-        endQuote = contentString.find('"', indexOfZiploc)  # Will be the index of the ending quote after the url
-        return contentString[indexOfZiploc:endQuote]
-    except Exception:
-        print('Failed to find downloadable zip file for addon. Skipping...\n')
-        return ''
-
-
 class AddonUpdater:
     def __init__(self):
         self.WOW_ADDON_LOCATION = ""
@@ -81,3 +63,17 @@ class AddonUpdater:
         except Exception:
             print('Failed to download or extract zip file for addon. Skipping...\n')
             return
+
+    def findZiploc(addonpage):
+        if not addonpage.startswith('https://mods.curse.com/addons/wow/'):
+            print('Invalid addon page. Make sure you are using the Curse page for the addon.')
+            confirmExit()
+        try:
+            page = requests.get(addonpage + '/download')
+            contentString = str(page.content)
+            indexOfZiploc = contentString.find('data-href') + 11  # Will be the index of the first char of the url
+            endQuote = contentString.find('"', indexOfZiploc)  # Will be the index of the ending quote after the url
+            return contentString[indexOfZiploc:endQuote]
+        except Exception:
+            print('Failed to find downloadable zip file for addon. Skipping...\n')
+            return ''
