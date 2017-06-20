@@ -1,6 +1,15 @@
 import requests
 
 
+def findZiploc(self, addonpage):
+    if addonpage.startswith('https://mods.curse.com/addons/wow/'):
+        return curse(addonpage)
+    elif addonpage.startswith('http://git.tukui.org/'):
+        return tukui(addonpage)
+    else:
+        print('Invalid addon page.')
+
+
 def curse(addonpage):
     try:
         page = requests.get(addonpage + '/download')
@@ -14,5 +23,5 @@ def curse(addonpage):
 
 
 def tukui(addonpage):
-    ziploc = addonpage + '/repository/archive.zip' # TODO: Stop creating a new elvui-master folder with subfolders
+    ziploc = addonpage + '/repository/archive.zip'  # TODO: Stop creating a new elvui-master folder with subfolders
     return ziploc

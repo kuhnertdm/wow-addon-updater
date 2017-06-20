@@ -1,6 +1,7 @@
 import requests, zipfile, configparser
 from io import *
 from os.path import isfile
+import SiteHandler
 
 
 def confirmExit():
@@ -13,7 +14,6 @@ class AddonUpdater:
         print('')
 
         # Read config file
-
         if not isfile('config.ini'):
             print(
                 'Failed to read configuration file. Are you sure there is a file called "config.ini" with the "WowAddonUpdater.py" file?')
@@ -37,11 +37,10 @@ class AddonUpdater:
     def update(self):
 
         # Main process (yes I formatted the project badly)
-
         with open(self.ADDON_LIST_FILE, "r") as fin:
             for line in fin:
                 print('Installing/updating addon: ' + line)
-                ziploc = self.findZiploc(line.rstrip('\n'))
+                ziploc = SiteHandler.findZiploc(line.rstrip('\n'))
                 self.getAddon(ziploc)
 
     def getAddon(self, ziploc):
@@ -54,16 +53,6 @@ class AddonUpdater:
         except Exception:
             print('Failed to download or extract zip file for addon. Skipping...\n')
             return
-
-    def findZiploc(self, addonpage):
-        import SiteHandler
-        if addonpage.startswith('https://mods.curse.com/addons/wow/'):
-            return SiteHandler.curse(addonpage)
-        elif addonpage.startswith('http://git.tukui.org/'):
-            return SiteHandler.tukui(addonpage)
-        else:
-            print('Invalid addon page. Make sure you are using the Curse page for the addon.')
-            confirmExit()
 
 
 def main():
