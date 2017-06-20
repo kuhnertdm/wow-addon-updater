@@ -1,11 +1,16 @@
 import requests
 
 
-def findZiploc(self, addonpage):
+def findZiploc(addonpage):
+    # Curse
     if addonpage.startswith('https://mods.curse.com/addons/wow/'):
         return curse(addonpage)
+
+    # Tukui
     elif addonpage.startswith('http://git.tukui.org/'):
         return tukui(addonpage)
+
+    # Invalid page
     else:
         print('Invalid addon page.')
 

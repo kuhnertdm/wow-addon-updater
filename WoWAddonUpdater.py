@@ -15,8 +15,7 @@ class AddonUpdater:
 
         # Read config file
         if not isfile('config.ini'):
-            print(
-                'Failed to read configuration file. Are you sure there is a file called "config.ini" with the "WowAddonUpdater.py" file?')
+            print('Failed to read configuration file. Are you sure there is a file called "config.ini"?')
             confirmExit()
 
         config = configparser.ConfigParser()
@@ -35,7 +34,6 @@ class AddonUpdater:
         return
 
     def update(self):
-
         # Main process (yes I formatted the project badly)
         with open(self.ADDON_LIST_FILE, "r") as fin:
             for line in fin:
