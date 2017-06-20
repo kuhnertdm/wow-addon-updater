@@ -60,3 +60,10 @@ with open(ADDON_LIST_FILE, "r") as fin:
 		print('Installing/updating addon: ' + line)
 		ziploc = findZiploc(line.rstrip('\n'))
 		getAddon(ziploc)
+
+def main():
+    return
+
+if __name__ == "__main__":
+    # execute only if run as a script
+    main()
