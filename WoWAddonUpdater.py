@@ -59,6 +59,8 @@ class AddonUpdater:
         import SiteHandler
         if addonpage.startswith('https://mods.curse.com/addons/wow/'):
             return SiteHandler.curse(addonpage)
+        elif addonpage.startswith('http://git.tukui.org/'):
+            return SiteHandler.tukui(addonpage)
         else:
             print('Invalid addon page. Make sure you are using the Curse page for the addon.')
             confirmExit()
