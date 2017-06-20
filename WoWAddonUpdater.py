@@ -69,6 +69,9 @@ class AddonUpdater:
             print('Failed to find downloadable zip file for addon. Skipping...\n')
             return ''
 
+    def __curse(self):
+        return
+
 
 def main():
     addonupdater = AddonUpdater()
