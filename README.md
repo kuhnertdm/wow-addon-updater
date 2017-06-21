@@ -45,7 +45,7 @@ Each link needs to be the main page for the addon, as shown above.
 
 The standard addon location on macOS is /Applications/World of Warcraft/Interface/AddOns
 
-*Note: When trying these instructions, I noticed that TextEdit had some trouble saving to a .txt file. Do whatever you need to do to either get it to a .txt file or some other plaintext format. Rich Text Format (.rtf) files will not work with this utility.*
+*Note: To save to a .txt file in TextEdit, go to Preferences > "New Document" tab > Under the "Format" section, choose "Plain Text".*
 
 ## Running the utility
 
