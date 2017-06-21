@@ -61,8 +61,10 @@ Have any questions, concerns, issues, or suggestions for the utility? Feel free 
 
 * Make a video guide detailing all the above information
 
+* Add support for more addon providers (namely WoWInterface)
+
 * Update to use a visual interface instead of a command-line interface
 
-* Make the code structure not suck. No, seriously... it's bad...
+* ~~Make the code structure not suck. No, seriously... it's bad...~~ Thanks to https://github.com/Saritus for the refactoring!
 
 Thanks for checking this out; hopefully it helps a lot of you :)
