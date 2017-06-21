@@ -1,8 +1,8 @@
-# Input file
+# Addon input file
 in.txt
+
+# Settings for IntelliJ
+.idea/
 
 # Compiled pyc files
 __pycache__/
-
-# IntelliJ settings
-.idea/

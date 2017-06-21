@@ -1,6 +1,7 @@
 import requests, zipfile, configparser
 from io import *
 from os.path import isfile
+import SiteHandler
 
 
 def confirmExit():
@@ -13,10 +14,8 @@ class AddonUpdater:
         print('')
 
         # Read config file
-
         if not isfile('config.ini'):
-            print(
-                'Failed to read configuration file. Are you sure there is a file called "config.ini" with the "WowAddonUpdater.py" file?')
+            print('Failed to read configuration file. Are you sure there is a file called "config.ini"?')
             confirmExit()
 
         config = configparser.ConfigParser()
@@ -35,13 +34,11 @@ class AddonUpdater:
         return
 
     def update(self):
-
         # Main process (yes I formatted the project badly)
-
         with open(self.ADDON_LIST_FILE, "r") as fin:
             for line in fin:
                 print('Installing/updating addon: ' + line)
-                ziploc = self.findZiploc(line.rstrip('\n'))
+                ziploc = SiteHandler.findZiploc(line.rstrip('\n'))
                 self.getAddon(ziploc)
 
     def getAddon(self, ziploc):
@@ -54,20 +51,6 @@ class AddonUpdater:
         except Exception:
             print('Failed to download or extract zip file for addon. Skipping...\n')
             return
-
-    def findZiploc(self, addonpage):
-        if not addonpage.startswith('https://mods.curse.com/addons/wow/'):
-            print('Invalid addon page. Make sure you are using the Curse page for the addon.')
-            confirmExit()
-        try:
-            page = requests.get(addonpage + '/download')
-            contentString = str(page.content)
-            indexOfZiploc = contentString.find('data-href') + 11  # Will be the index of the first char of the url
-            endQuote = contentString.find('"', indexOfZiploc)  # Will be the index of the ending quote after the url
-            return contentString[indexOfZiploc:endQuote]
-        except Exception:
-            print('Failed to find downloadable zip file for addon. Skipping...\n')
-            return ''
 
 
 def main():
