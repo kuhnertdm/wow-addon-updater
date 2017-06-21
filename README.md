@@ -34,6 +34,19 @@ Whatever file you use for your list of mods needs to be formatted in a particula
     
 Each link needs to be the main page for the addon, as shown above.
 
+## macOS Installation Instructions - Thanks to https://github.com/melwan
+
+1. Install Python 3 for macOS
+2. Run get-pip.py (Run menu > Run Module)
+3. Run get-requests.py (Run menu > Run Module)
+4. Edit config.ini (using TextEdit.app)
+5. Create in.txt (using TextEdit.app)
+6. Run WoWAddonUpdater.py (Run menu > Run Module)
+
+The standard addon location on macOS is /Applications/World of Warcraft/Interface/AddOns
+
+*Note: When trying these instructions, I noticed that TextEdit had some trouble saving to a .txt file. Do whatever you need to do to either get it to a .txt file or some other plaintext format. Rich Text Format (.rtf) files will not work with this utility.*
+
 ## Running the utility
 
 After configuring the utility and setting up your input file, updating your addons is as simple as double clicking the "WoWAddonUpdater.py" file.
