@@ -39,5 +39,13 @@ def tukui(addonpage):
 
 
 def wowinterface(addonpage):
-    print('Wowinterface is not supported yet.')
-    return ''
+    downloadpage = addonpage.replace('info', 'download')
+    try:
+        page = requests.get(downloadpage + '/download')
+        contentString = str(page.content)
+        indexOfZiploc = contentString.find('Problems with the download? <a href="') + 37  # first char of the url
+        endQuote = contentString.find('"', indexOfZiploc)  # ending quote after the url
+        return contentString[indexOfZiploc:endQuote]
+    except Exception:
+        print('Failed to find downloadable zip file for addon. Skipping...\n')
+        return ''
