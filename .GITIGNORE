@@ -1,1 +1,8 @@
+# Input file
 in.txt
+
+# Compiled pyc files
+__pycache__/
+
+# IntelliJ settings
+.idea/
