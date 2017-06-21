@@ -32,8 +32,10 @@ def curse(addonpage):
 
 
 def tukui(addonpage):
-    ziploc = addonpage + '/repository/archive.zip'  # TODO: Stop creating a new elvui-master folder with subfolders
-    return ziploc
+    ziploc = addonpage + '/repository/archive.zip'
+    # TODO: Stop creating a new elvui-master folder with subfolders
+    print('Tukui is not supported yet.')
+    return ''
 
 
 def wowinterface(addonpage):
