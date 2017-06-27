@@ -24,6 +24,7 @@ class AddonUpdater:
         try:
             self.WOW_ADDON_LOCATION = config['WOW ADDON UPDATER']['WoW Addon Location']
             self.ADDON_LIST_FILE = config['WOW ADDON UPDATER']['Addon List File']
+            self.INSTALLED_VERS_FILE = config['WOW ADDON UPDATER']['Installed Versions File']
         except Exception:
             print('Failed to parse configuration file. Are you sure it is formatted correctly?')
             confirmExit()
