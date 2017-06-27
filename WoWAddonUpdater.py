@@ -68,6 +68,14 @@ class AddonUpdater:
         except Exception:
             return ''
 
+    def setInstalledVersion(self, addonpage, currentVersion):
+        addonName = addonpage.replace('https://mods.curse.com/addons/wow/', '')
+        installedVers = configparser.ConfigParser()
+        installedVers.read(self.INSTALLED_VERS_FILE)
+        installedVers.set('Installed Versions', addonName, currentVersion)
+        with open(self.INSTALLED_VERS_FILE, 'w') as installedVersFile:
+            installedVers.write(installedVersFile)
+
 
 def main():
     addonupdater = AddonUpdater()
