@@ -73,7 +73,7 @@ class AddonUpdater:
         try:
             return installedVers['Installed Versions'][addonName]
         except Exception:
-            return ''
+            return 'version not found'
 
     def setInstalledVersion(self, addonpage, currentVersion):
         addonName = addonpage.replace('https://mods.curse.com/addons/wow/', '')
