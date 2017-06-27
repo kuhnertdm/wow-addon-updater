@@ -62,7 +62,7 @@ def getCurseVersion(addonpage):
         return contentString[indexOfVer:endTag].strip()
     except Exception:
         print('Failed to find version number for: ' + addonpage)
-        return ''
+        return '-'
 
 
 # Tukui
@@ -73,8 +73,8 @@ def tukui(addonpage):
 
 
 def getTukuiVersion(addonpage):
-    print('Tukui is not supported yet.')
-    return ''
+    # print('Tukui is not supported yet.')
+    return '-'
 
 
 # Wowinterface
@@ -93,5 +93,5 @@ def wowinterface(addonpage):
 
 
 def getWowinterfaceVersion(addonpage):
-    print('Wowinterface is not supported yet.')
-    return ''
+    # print('Wowinterface is not supported yet.')
+    return '-'
