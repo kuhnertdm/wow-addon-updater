@@ -76,6 +76,22 @@ class AddonUpdater:
         with open(self.INSTALLED_VERS_FILE, 'w') as installedVersFile:
             installedVers.write(installedVersFile)
 
+    def getCurrentVersion(self, addonpage):
+        if not addonpage.startswith('https://mods.curse.com/addons/wow/'):
+            print('Invalid addon page. Make sure you are using the Curse page for the addon.')
+            confirmExit()
+        try:
+            page = requests.get(addonpage)
+            contentString = str(page.content)
+            indexOfVer = contentString.find(
+                'newest-file') + 26  # Will be the index of the first char of the version string
+            endTag = contentString.find('</li>',
+                                        indexOfVer)  # Will be the index of the ending tag after the version string
+            return contentString[indexOfVer:endTag].strip()
+        except Exception:
+            print('Failed to find version number for: ' + addonpage)
+            return ''
+
 
 def main():
     addonupdater = AddonUpdater()
