@@ -1,6 +1,8 @@
 import requests
 
 
+# Site splitter
+
 def findZiploc(addonpage):
     # Curse
     if addonpage.startswith('https://mods.curse.com/addons/wow/'):
@@ -51,7 +53,7 @@ def curse(addonpage):
         return ''
 
 
-def getCurseVersion(self, addonpage):
+def getCurseVersion(addonpage):
     try:
         page = requests.get(addonpage)
         contentString = str(page.content)
