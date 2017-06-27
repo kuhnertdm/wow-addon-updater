@@ -19,6 +19,26 @@ def findZiploc(addonpage):
         print('Invalid addon page.')
 
 
+def getCurrentVersion(addonpage):
+    # Curse
+    if addonpage.startswith('https://mods.curse.com/addons/wow/'):
+        return getCurseVersion(addonpage)
+
+    # Tukui
+    elif addonpage.startswith('http://git.tukui.org/'):
+        return getTukuiVersion(addonpage)
+
+    # Wowinterface
+    elif addonpage.startswith('http://www.wowinterface.com/'):
+        return getWowinterfaceVersion(addonpage)
+
+    # Invalid page
+    else:
+        print('Invalid addon page.')
+
+
+# Curse
+
 def curse(addonpage):
     try:
         page = requests.get(addonpage + '/download')
@@ -43,10 +63,19 @@ def getCurseVersion(self, addonpage):
         return ''
 
 
+# Tukui
+
 def tukui(addonpage):
     print('Tukui is not supported yet.')
     return ''
 
+
+def getTukuiVersion(addonpage):
+    print('Tukui is not supported yet.')
+    return ''
+
+
+# Wowinterface
 
 def wowinterface(addonpage):
     downloadpage = addonpage.replace('info', 'download')
@@ -59,3 +88,8 @@ def wowinterface(addonpage):
     except Exception:
         print('Failed to find downloadable zip file for addon. Skipping...\n')
         return ''
+
+
+def getWowinterfaceVersion(addonpage):
+    print('Wowinterface is not supported yet.')
+    return ''
