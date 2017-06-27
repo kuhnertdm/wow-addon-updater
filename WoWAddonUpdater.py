@@ -83,10 +83,8 @@ class AddonUpdater:
         try:
             page = requests.get(addonpage)
             contentString = str(page.content)
-            indexOfVer = contentString.find(
-                'newest-file') + 26  # Will be the index of the first char of the version string
-            endTag = contentString.find('</li>',
-                                        indexOfVer)  # Will be the index of the ending tag after the version string
+            indexOfVer = contentString.find('newest-file') + 26  # first char of the version string
+            endTag = contentString.find('</li>', indexOfVer)  # ending tag after the version string
             return contentString[indexOfVer:endTag].strip()
         except Exception:
             print('Failed to find version number for: ' + addonpage)
