@@ -32,7 +32,7 @@ class AddonUpdater:
         if not isfile(self.ADDON_LIST_FILE):
             print('Failed to read addon list file. Are you sure the file exists?')
             confirmExit()
-            
+
         if not isfile(self.INSTALLED_VERS_FILE):
             with open(self.INSTALLED_VERS_FILE, 'w') as newInstalledVersFile:
                 newInstalledVers = configparser.ConfigParser()
