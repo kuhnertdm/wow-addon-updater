@@ -69,6 +69,7 @@ class AddonUpdater:
 
     def getInstalledVersion(self, addonpage):
         addonName = addonpage.replace('https://mods.curse.com/addons/wow/', '')
+        addonName = addonName.replace('http://www.wowinterface.com/downloads/', '')
         installedVers = configparser.ConfigParser()
         installedVers.read(self.INSTALLED_VERS_FILE)
         try:
@@ -78,6 +79,7 @@ class AddonUpdater:
 
     def setInstalledVersion(self, addonpage, currentVersion):
         addonName = addonpage.replace('https://mods.curse.com/addons/wow/', '')
+        addonName = addonName.replace('http://www.wowinterface.com/downloads/', '')
         installedVers = configparser.ConfigParser()
         installedVers.read(self.INSTALLED_VERS_FILE)
         installedVers.set('Installed Versions', addonName, currentVersion)
