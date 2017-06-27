@@ -1,4 +1,4 @@
-import requests
+import packages.requests as requests
 
 
 def findZiploc(addonpage):
