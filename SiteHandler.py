@@ -93,5 +93,12 @@ def wowinterface(addonpage):
 
 
 def getWowinterfaceVersion(addonpage):
-    # print('Wowinterface is not supported yet.')
-    return '-'
+    try:
+        page = requests.get(addonpage)
+        contentString = str(page.content)
+        indexOfVer = contentString.find('id="version"') + 22  # first char of the version string
+        endTag = contentString.find('</div>', indexOfVer)  # ending tag after the version string
+        return contentString[indexOfVer:endTag].strip()
+    except Exception:
+        print('Failed to find version number for: ' + addonpage)
+        return ''
