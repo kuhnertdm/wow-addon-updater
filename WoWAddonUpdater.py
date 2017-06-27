@@ -59,6 +59,15 @@ class AddonUpdater:
             print('Failed to download or extract zip file for addon. Skipping...\n')
             return
 
+    def getInstalledVersion(self, addonpage):
+        addonName = addonpage.replace('https://mods.curse.com/addons/wow/', '')
+        installedVers = configparser.ConfigParser()
+        installedVers.read(self.INSTALLED_VERS_FILE)
+        try:
+            return installedVers['Installed Versions'][addonName]
+        except Exception:
+            return ''
+
 
 def main():
     addonupdater = AddonUpdater()
