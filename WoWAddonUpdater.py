@@ -51,7 +51,8 @@ class AddonUpdater:
                     print('Installing/updating addon: ' + line + ' to version: ' + currentVersion)
                     ziploc = SiteHandler.findZiploc(line)
                     self.getAddon(ziploc)
-                    self.setInstalledVersion(line, currentVersion)
+                    if currentVersion is not '':
+                        self.setInstalledVersion(line, currentVersion)
                 else:
                     print(line + ' version ' + currentVersion + ' is up to date.')
 
