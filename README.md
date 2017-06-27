@@ -1,4 +1,4 @@
-# wow-addon-updater
+# wow-addon-updater - Now supports Curse and WoWInterface addons!
 
 This utility provides an alternative to the Twitch/Curse client for management and updating of addons for World of Warcraft. The Twitch/Curse client is rather bloated and buggy, and comes with many features that most users will not ever use in the first place. This utility, however, is lightweight and makes it very easy to manage which addons are being updated, and to update them just by running a python script.
 
@@ -26,11 +26,13 @@ The default location of the addon list file is simply "in.txt", but this file wi
 
 ## Input file format
 
-Whatever file you use for your list of mods needs to be formatted in a particular way. Each line corresponds to a mod, and the line just needs to contain the link to the Curse page for the mod. For example:
+Whatever file you use for your list of mods needs to be formatted in a particular way. Each line corresponds to a mod, and the line just needs to contain the link to the Curse or WoWInterface page for the mod. For example:
 
     https://mods.curse.com/addons/wow/world-quest-tracker
     https://mods.curse.com/addons/wow/deadly-boss-mods
     https://mods.curse.com/addons/wow/auctionator
+    http://www.wowinterface.com/downloads/info24005-RavenousMounts.html
+    
     
 Each link needs to be the main page for the addon, as shown above.
 
@@ -61,10 +63,12 @@ Have any questions, concerns, issues, or suggestions for the utility? Feel free 
 
 * Make a video guide detailing all the above information
 
-* Add support for more addon providers (namely WoWInterface)
-
 * Update to use a visual interface instead of a command-line interface
 
+* Add version checking to eliminate reinstalls of the current versions of addons
+
 * ~~Make the code structure not suck. No, seriously... it's bad...~~ Thanks to https://github.com/Saritus for the refactoring!
+
+* ~~Add support for more addon providers (namely WoWInterface)~~ Thanks to https://github.com/Saritus for the WoWInterface support!
 
 Thanks for checking this out; hopefully it helps a lot of you :)
