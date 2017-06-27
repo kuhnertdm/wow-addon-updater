@@ -31,6 +31,18 @@ def curse(addonpage):
         return ''
 
 
+def getCurseVersion(self, addonpage):
+    try:
+        page = requests.get(addonpage)
+        contentString = str(page.content)
+        indexOfVer = contentString.find('newest-file') + 26  # first char of the version string
+        endTag = contentString.find('</li>', indexOfVer)  # ending tag after the version string
+        return contentString[indexOfVer:endTag].strip()
+    except Exception:
+        print('Failed to find version number for: ' + addonpage)
+        return ''
+
+
 def tukui(addonpage):
     print('Tukui is not supported yet.')
     return ''
