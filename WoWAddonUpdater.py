@@ -44,9 +44,16 @@ class AddonUpdater:
         # Main process (yes I formatted the project badly)
         with open(self.ADDON_LIST_FILE, "r") as fin:
             for line in fin:
-                print('Installing/updating addon: ' + line)
-                ziploc = SiteHandler.findZiploc(line.rstrip('\n'))
-                self.getAddon(ziploc)
+                line = line.rstrip('\n')
+                currentVersion = SiteHandler.getCurrentVersion(line)
+                installedVersion = self.getInstalledVersion(line)
+                if not currentVersion == installedVersion:
+                    print('Installing/updating addon: ' + line + ' to version: ' + currentVersion)
+                    ziploc = SiteHandler.findZiploc(line)
+                    self.getAddon(ziploc)
+                    self.setInstalledVersion(line, currentVersion)
+                else:
+                    print(line + ' version ' + currentVersion + ' is up to date.')
 
     def getAddon(self, ziploc):
         if ziploc == '':
