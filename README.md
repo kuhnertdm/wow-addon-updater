@@ -61,7 +61,7 @@ Have any questions, concerns, issues, or suggestions for the utility? Feel free 
 
 * Update to use a visual interface instead of a command-line interface
 
-* Add version checking to eliminate reinstalls of the current versions of addons
+* ~~Add version checking to eliminate reinstalls of the current versions of addons~~ Thanks to https://github.com/zurohki for the code to implement this, and to https://github.com/Saritus for integrating it into the current codebase! You will now see reduced data usage of the app, and quicker update times!
 
 * ~~Make the code structure not suck. No, seriously... it's bad...~~ Thanks to https://github.com/Saritus for the refactoring!
 
