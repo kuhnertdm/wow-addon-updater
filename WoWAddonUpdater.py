@@ -1,7 +1,8 @@
-import requests, zipfile, configparser
+import zipfile, configparser
 from io import *
 from os.path import isfile
 import SiteHandler
+import packages.requests as requests
 
 
 def confirmExit():
