@@ -26,6 +26,7 @@ class AddonUpdater:
             self.WOW_ADDON_LOCATION = config['WOW ADDON UPDATER']['WoW Addon Location']
             self.ADDON_LIST_FILE = config['WOW ADDON UPDATER']['Addon List File']
             self.INSTALLED_VERS_FILE = config['WOW ADDON UPDATER']['Installed Versions File']
+            self.AUTO_CLOSE = config['WOW ADDON UPDATER']['Close Automatically When Completed']
         except Exception:
             print('Failed to parse configuration file. Are you sure it is formatted correctly?\n')
             confirmExit()
@@ -56,6 +57,8 @@ class AddonUpdater:
                         self.setInstalledVersion(line, currentVersion)
                 else:
                     print(line + ' version ' + currentVersion + ' is up to date.\n')
+        if self.AUTO_CLOSE == 'False':
+            confirmExit()
 
     def getAddon(self, ziploc):
         if ziploc == '':
@@ -91,7 +94,6 @@ class AddonUpdater:
 def main():
     addonupdater = AddonUpdater()
     addonupdater.update()
-    confirmExit()
     return
 
 
