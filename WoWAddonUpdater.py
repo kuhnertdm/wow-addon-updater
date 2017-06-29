@@ -16,7 +16,7 @@ class AddonUpdater:
 
         # Read config file
         if not isfile('config.ini'):
-            print('Failed to read configuration file. Are you sure there is a file called "config.ini"?')
+            print('Failed to read configuration file. Are you sure there is a file called "config.ini"?\n')
             confirmExit()
 
         config = configparser.ConfigParser()
@@ -27,11 +27,11 @@ class AddonUpdater:
             self.ADDON_LIST_FILE = config['WOW ADDON UPDATER']['Addon List File']
             self.INSTALLED_VERS_FILE = config['WOW ADDON UPDATER']['Installed Versions File']
         except Exception:
-            print('Failed to parse configuration file. Are you sure it is formatted correctly?')
+            print('Failed to parse configuration file. Are you sure it is formatted correctly?\n')
             confirmExit()
 
         if not isfile(self.ADDON_LIST_FILE):
-            print('Failed to read addon list file. Are you sure the file exists?')
+            print('Failed to read addon list file. Are you sure the file exists?\n')
             confirmExit()
 
         if not isfile(self.INSTALLED_VERS_FILE):
@@ -49,13 +49,13 @@ class AddonUpdater:
                 currentVersion = SiteHandler.getCurrentVersion(line)
                 installedVersion = self.getInstalledVersion(line)
                 if not currentVersion == installedVersion:
-                    print('Installing/updating addon: ' + line + ' to version: ' + currentVersion)
+                    print('Installing/updating addon: ' + line + ' to version: ' + currentVersion + '\n')
                     ziploc = SiteHandler.findZiploc(line)
                     self.getAddon(ziploc)
                     if currentVersion is not '':
                         self.setInstalledVersion(line, currentVersion)
                 else:
-                    print(line + ' version ' + currentVersion + ' is up to date.')
+                    print(line + ' version ' + currentVersion + ' is up to date.\n')
 
     def getAddon(self, ziploc):
         if ziploc == '':
@@ -91,7 +91,7 @@ class AddonUpdater:
 def main():
     addonupdater = AddonUpdater()
     addonupdater.update()
-
+    confirmExit()
     return
 
 
