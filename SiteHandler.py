@@ -6,6 +6,8 @@ import packages.requests as requests
 def findZiploc(addonpage):
     # Curse
     if addonpage.startswith('https://mods.curse.com/addons/wow/'):
+        return curse('https://www.curseforge.com/wow/addons/' + addonpage.split('/')[-1])
+    elif addonpage.startswith('https://www.curseforge.com/wow/addons/'):
         return curse(addonpage)
 
     # Tukui
@@ -24,6 +26,8 @@ def findZiploc(addonpage):
 def getCurrentVersion(addonpage):
     # Curse
     if addonpage.startswith('https://mods.curse.com/addons/wow/'):
+        return getCurseVersion('https://www.curseforge.com/wow/addons/' + addonpage.split('/')[-1])
+    elif addonpage.startswith('https://www.curseforge.com/wow/addons/'):
         return getCurseVersion(addonpage)
 
     # Tukui
@@ -45,9 +49,9 @@ def curse(addonpage):
     try:
         page = requests.get(addonpage + '/download')
         contentString = str(page.content)
-        indexOfZiploc = contentString.find('data-href') + 11  # Will be the index of the first char of the url
+        indexOfZiploc = contentString.find('download__link') + 22  # Will be the index of the first char of the url
         endQuote = contentString.find('"', indexOfZiploc)  # Will be the index of the ending quote after the url
-        return contentString[indexOfZiploc:endQuote]
+        return 'https://www.curseforge.com' + contentString[indexOfZiploc:endQuote]
     except Exception:
         print('Failed to find downloadable zip file for addon. Skipping...\n')
         return ''
@@ -55,10 +59,10 @@ def curse(addonpage):
 
 def getCurseVersion(addonpage):
     try:
-        page = requests.get(addonpage)
+        page = requests.get(addonpage + '/files')
         contentString = str(page.content)
-        indexOfVer = contentString.find('newest-file') + 26  # first char of the version string
-        endTag = contentString.find('</li>', indexOfVer)  # ending tag after the version string
+        indexOfVer = contentString.find('file__name full') + 17  # first char of the version string
+        endTag = contentString.find('</span>', indexOfVer)  # ending tag after the version string
         return contentString[indexOfVer:endTag].strip()
     except Exception:
         print('Failed to find version number for: ' + addonpage)

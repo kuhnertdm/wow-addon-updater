@@ -1,8 +1,10 @@
-# wow-addon-updater - Now supports Curse and WoWInterface addons!
+# wow-addon-updater - Now supports new CurseForge site!
 
 This utility provides an alternative to the Twitch/Curse client for management and updating of addons for World of Warcraft. The Twitch/Curse client is rather bloated and buggy, and comes with many features that most users will not ever use in the first place. This utility, however, is lightweight and makes it very easy to manage which addons are being updated, and to update them just by running a python script.
 
 ## Changelog
+
+* 11/17/2017 - Fixed compatability issues with new CurseForge site. Also backwards-compatible with old URLs still left in the input file. Major thanks to https://github.com/lithium720 for letting me know about this (as I'm currently on an extended break from WoW) and https://github.com/adrien-martin for contributing to the fix.
 
 * 7/2/2017 - Fixed bug that would cause the app to crash after downloading with no previous pip installations (i.e. the import errors)
 
@@ -14,7 +16,7 @@ This utility has two dependencies:
 
 * The [requests](http://docs.python-requests.org/en/master/) module
 
-**NEW:** Thanks to https://github.com/Saritus, the requests module is now included in the download as a package, so there is no longer any need to install those yourself. Just install Python 3, download this app, configure the utility, and double click "WoWAddonUpdater.py" to start.
+Thanks to https://github.com/Saritus, the requests module is now included in the download as a package, so there is no longer any need to install those yourself. Just install Python 3, download this app, configure the utility, and double click "WoWAddonUpdater.py" to start.
 
 ## Configuring the utility
 
@@ -32,9 +34,9 @@ The "Close Automatically When Completed" property determines whether the window 
 
 Whatever file you use for your list of mods needs to be formatted in a particular way. Each line corresponds to a mod, and the line just needs to contain the link to the Curse or WoWInterface page for the mod. For example:
 
-    https://mods.curse.com/addons/wow/world-quest-tracker
-    https://mods.curse.com/addons/wow/deadly-boss-mods
-    https://mods.curse.com/addons/wow/auctionator
+    https://www.curseforge.com/wow/addons/world-quest-tracker
+    https://www.curseforge.com/wow/addons/deadly-boss-mods
+    https://www.curseforge.com/wow/addons/auctionator
     http://www.wowinterface.com/downloads/info24005-RavenousMounts.html
     
     
