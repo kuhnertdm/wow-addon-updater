@@ -50,6 +50,8 @@ class AddonUpdater:
                 if not len(line):
                     continue
                 currentVersion = SiteHandler.getCurrentVersion(line)
+                if currentVersion is None:
+                    currentVersion = 'Not Available'
                 installedVersion = self.getInstalledVersion(line)
                 if not currentVersion == installedVersion:
                     print('Installing/updating addon: ' + line + ' to version: ' + currentVersion + '\n')
@@ -76,6 +78,7 @@ class AddonUpdater:
     def getInstalledVersion(self, addonpage):
         addonName = addonpage.replace('https://mods.curse.com/addons/wow/', '')
         addonName = addonName.replace('https://www.curseforge.com/wow/addons/', '')
+        addonName = addonName.replace('https://wow.curseforge.com/projects/', '')
         addonName = addonName.replace('http://www.wowinterface.com/downloads/', '')
         installedVers = configparser.ConfigParser()
         installedVers.read(self.INSTALLED_VERS_FILE)
@@ -87,6 +90,7 @@ class AddonUpdater:
     def setInstalledVersion(self, addonpage, currentVersion):
         addonName = addonpage.replace('https://mods.curse.com/addons/wow/', '')
         addonName = addonName.replace('https://www.curseforge.com/wow/addons/', '')
+        addonName = addonName.replace('https://wow.curseforge.com/projects/', '')
         addonName = addonName.replace('http://www.wowinterface.com/downloads/', '')
         installedVers = configparser.ConfigParser()
         installedVers.read(self.INSTALLED_VERS_FILE)
