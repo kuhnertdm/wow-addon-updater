@@ -4,6 +4,8 @@ This utility provides an alternative to the Twitch/Curse client for management a
 
 ## Changelog
 
+* 2/27/2018 - More consistent conversion of old Curse URLs. Thanks to https://github.com/zurohki for this!
+
 * 2/27/2018 - Added formatted table of updated addons and added comment support in the in.txt file (Will ignore lines beginning with the hash character #). Thanks to https://github.com/helpfuljohn for this!
 
 * 2/27/2018 - Added support for Curse Projects. Thanks to https://github.com/Delduwath for this!
