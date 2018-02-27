@@ -47,6 +47,8 @@ class AddonUpdater:
         with open(self.ADDON_LIST_FILE, "r") as fin:
             for line in fin:
                 line = line.rstrip('\n')
+                if not len(line):
+                    continue
                 currentVersion = SiteHandler.getCurrentVersion(line)
                 installedVersion = self.getInstalledVersion(line)
                 if not currentVersion == installedVersion:
