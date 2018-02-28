@@ -10,6 +10,10 @@ def findZiploc(addonpage):
     elif addonpage.startswith('https://www.curseforge.com/wow/addons/'):
         return curse(addonpage)
 
+    # Curse Project
+    elif addonpage.startswith('https://wow.curseforge.com/projects/'):
+        return curseProject(addonpage)
+		
     # Tukui
     elif addonpage.startswith('http://git.tukui.org/'):
         return tukui(addonpage)
@@ -30,6 +34,10 @@ def getCurrentVersion(addonpage):
     elif addonpage.startswith('https://www.curseforge.com/wow/addons/'):
         return getCurseVersion(addonpage)
 
+    # Curse Project
+    elif addonpage.startswith('https://wow.curseforge.com/projects/'):
+        return getCurseProjectVersion(addonpage)
+		
     # Tukui
     elif addonpage.startswith('http://git.tukui.org/'):
         return getTukuiVersion(addonpage)
@@ -127,6 +135,27 @@ def getCurseDatastoreVersion(addonpage):
         return contentString[indexOfVer:endOfVer].strip()
     except Exception:
         print('Failed to find alpha version number for: ' + addonpage)
+
+
+# Curse Project
+
+def curseProject(addonpage):
+    try:
+        return addonpage + '/files/latest'
+    except Exception:
+        print('Failed to find downloadable zip file for addon. Skipping...\n')
+        return ''
+
+
+def getCurseProjectVersion(addonpage):
+    try:
+        page = requests.get(addonpage + '/files')
+        contentString = str(page.content)
+        indexOfVer = contentString.find('data-name') + 11  # first char of the version string
+        endTag = contentString.find('">', indexOfVer)  # ending tag after the version string
+        return contentString[indexOfVer:endTag].strip()
+    except Exception:
+        print('Failed to find version number for: ' + addonpage)
         return ''
 
 
