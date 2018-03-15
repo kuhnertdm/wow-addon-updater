@@ -13,7 +13,7 @@ def findZiploc(addonpage):
     # Curse Project
     elif addonpage.startswith('https://wow.curseforge.com/projects/'):
         return curseProject(addonpage)
-		
+
     # Tukui
     elif addonpage.startswith('http://git.tukui.org/'):
         return tukui(addonpage)
@@ -37,7 +37,7 @@ def getCurrentVersion(addonpage):
     # Curse Project
     elif addonpage.startswith('https://wow.curseforge.com/projects/'):
         return getCurseProjectVersion(addonpage)
-		
+
     # Tukui
     elif addonpage.startswith('http://git.tukui.org/'):
         return getTukuiVersion(addonpage)
