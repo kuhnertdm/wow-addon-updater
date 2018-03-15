@@ -55,6 +55,17 @@ def getCurrentVersion(addonpage):
         print('Invalid addon page.')
 
 
+def getAddonName(addonpage):
+    # Might actually read names from web pages later
+    addonName = addonpage.replace('https://mods.curse.com/addons/wow/', '')
+    addonName = addonName.replace('https://www.curseforge.com/wow/addons/', '')
+    addonName = addonName.replace('https://wow.curseforge.com/projects/', '')
+    addonName = addonName.replace('http://www.wowinterface.com/downloads/', '')
+    if addonName.endswith('/files'):
+        addonName = addonName[:-6]
+    return addonName
+
+
 # Curse
 
 def curse(addonpage):
