@@ -55,7 +55,7 @@ class AddonUpdater:
                 if currentVersion is None:
                     currentVersion = 'Not Available'
                 current_node.append(line.split("/")[-1])
-                current_node.append(SiteHandler.getCurrentVersion(line))
+                current_node.append(currentVersion)
                 installedVersion = self.getInstalledVersion(line)
                 if not currentVersion == installedVersion:
                     print('Installing/updating addon: ' + line + ' to version: ' + currentVersion + '\n')

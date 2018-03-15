@@ -79,7 +79,8 @@ def curseDatastore(addonpage):
         page = requests.get(projectPage)
         projectPage = page.url  # We might get redirected, need to know where we ended up.
         contentString = str(page.content)
-        indexOfZiploc = contentString.find('<a class="button tip fa-icon-download icon-only" href="/') + 55
+        startOfTable = contentString.find('project-file-name-container')
+        indexOfZiploc = contentString.find('<a class="button tip fa-icon-download icon-only" href="/', startOfTable) + 55
         endOfZiploc = contentString.find('"', indexOfZiploc)
 
         # Add on the first part of the project page URL to get a complete URL
@@ -125,14 +126,10 @@ def getCurseDatastoreVersion(addonpage):
         contentString = str(page.content)
         endOfProjectPageURL = contentString.find('">Visit Project Page')
         indexOfProjectPageURL = contentString.rfind('<a href="', 0, endOfProjectPageURL) + 9
-        projectPage = contentString[indexOfProjectPageURL:endOfProjectPageURL] + '/files'
+        projectPage = contentString[indexOfProjectPageURL:endOfProjectPageURL]
 
-        # Then get the project page and get the version of the first (most recent) file
-        page = requests.get(projectPage)
-        contentString = str(page.content)
-        indexOfVer = contentString.find('data-name="') + 11
-        endOfVer = contentString.find('"', indexOfVer)
-        return contentString[indexOfVer:endOfVer].strip()
+        # Now just call getCurseProjectVersion with the URL we found
+        return getCurseProjectVersion(projectPage)
     except Exception:
         print('Failed to find alpha version number for: ' + addonpage)
 
@@ -151,7 +148,8 @@ def getCurseProjectVersion(addonpage):
     try:
         page = requests.get(addonpage + '/files')
         contentString = str(page.content)
-        indexOfVer = contentString.find('data-name') + 11  # first char of the version string
+        startOfTable = contentString.find('project-file-list-item')
+        indexOfVer = contentString.find('data-name="', startOfTable) + 11  # first char of the version string
         endTag = contentString.find('">', indexOfVer)  # ending tag after the version string
         return contentString[indexOfVer:endTag].strip()
     except Exception:
