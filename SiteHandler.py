@@ -12,7 +12,11 @@ def findZiploc(addonpage):
 
     # Curse Project
     elif addonpage.startswith('https://wow.curseforge.com/projects/'):
-        return curseProject(addonpage)
+        if addonpage.endswith('/files'):
+            # Remove /files from the end of the URL, since it gets added later
+            return curseProject(addonpage[:-6])
+        else:
+            return curseProject(addonpage)
 
     # Tukui
     elif addonpage.startswith('http://git.tukui.org/'):
