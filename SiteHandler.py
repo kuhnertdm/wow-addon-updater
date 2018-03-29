@@ -18,6 +18,14 @@ def findZiploc(addonpage):
         else:
             return curseProject(addonpage)
 
+    # WowAce Project
+    elif addonpage.startswith('https://www.wowace.com/projects/'):
+        if addonpage.endswith('/files'):
+            # Remove /files from the end of the URL, since it gets added later
+            return wowAceProject(addonpage[:-6])
+        else:
+            return wowAceProject(addonpage)
+
     # Tukui
     elif addonpage.startswith('http://git.tukui.org/'):
         return tukui(addonpage)
@@ -42,6 +50,10 @@ def getCurrentVersion(addonpage):
     elif addonpage.startswith('https://wow.curseforge.com/projects/'):
         return getCurseProjectVersion(addonpage)
 
+    # WowAce Project
+    elif addonpage.startswith('https://www.wowace.com/projects/'):
+        return getWowAceProjectVersion(addonpage)
+
     # Tukui
     elif addonpage.startswith('http://git.tukui.org/'):
         return getTukuiVersion(addonpage)
@@ -61,6 +73,7 @@ def getAddonName(addonpage):
     addonName = addonName.replace('https://www.curseforge.com/wow/addons/', '')
     addonName = addonName.replace('https://wow.curseforge.com/projects/', '')
     addonName = addonName.replace('http://www.wowinterface.com/downloads/', '')
+    addonName = addonName.replace('https://www.wowace.com/projects/', '')
     if addonName.endswith('/files'):
         addonName = addonName[:-6]
     return addonName
@@ -160,6 +173,29 @@ def curseProject(addonpage):
 
 
 def getCurseProjectVersion(addonpage):
+    try:
+        page = requests.get(addonpage + '/files')
+        contentString = str(page.content)
+        startOfTable = contentString.find('project-file-list-item')
+        indexOfVer = contentString.find('data-name="', startOfTable) + 11  # first char of the version string
+        endTag = contentString.find('">', indexOfVer)  # ending tag after the version string
+        return contentString[indexOfVer:endTag].strip()
+    except Exception:
+        print('Failed to find version number for: ' + addonpage)
+        return ''
+
+
+# WowAce Project
+
+def wowAceProject(addonpage):
+    try:
+        return addonpage + '/files/latest'
+    except Exception:
+        print('Failed to find downloadable zip file for addon. Skipping...\n')
+        return ''
+
+
+def getWowAceProjectVersion(addonpage):
     try:
         page = requests.get(addonpage + '/files')
         contentString = str(page.content)
