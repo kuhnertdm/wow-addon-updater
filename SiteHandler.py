@@ -1,5 +1,10 @@
 import packages.requests as requests
-
+import re
+import zipfile
+import os
+import tempfile
+import shutil
+from io import *
 
 # Site splitter
 
@@ -15,7 +20,7 @@ def findZiploc(addonpage):
         return curseProject(addonpage)
 		
     # Tukui
-    elif addonpage.startswith('http://git.tukui.org/'):
+    elif addonpage.startswith('https://git.tukui.org/'):
         return tukui(addonpage)
 
     # Wowinterface
@@ -39,7 +44,7 @@ def getCurrentVersion(addonpage):
         return getCurseProjectVersion(addonpage)
 		
     # Tukui
-    elif addonpage.startswith('http://git.tukui.org/'):
+    elif addonpage.startswith('https://git.tukui.org/'):
         return getTukuiVersion(addonpage)
 
     # Wowinterface
@@ -50,6 +55,74 @@ def getCurrentVersion(addonpage):
     else:
         print('Invalid addon page.')
 
+def installAddon(addonUrl, installPath):
+    try:
+        if addonUrl.lower().startswith(('https://mods.curse.com/',
+            'https://www.curseforge.com/', 'http://www.wowinterface.com/')):
+            installSingleLevelZip(addonUrl, installPath)
+        elif addonUrl.startswith('https://git.tukui.org/'):
+            installZippedGitRepo(addonUrl, installPath)
+        else:
+            print('Invalid addon URL.')
+    except Exception as err:
+        print('Failed to install ' + addonUrl)
+        print(err)
+
+def installSingleLevelZip(addonUrl, installPath):
+    try:
+        r = requests.get(addonUrl, stream=True)
+        z = zipfile.ZipFile(BytesIO(r.content))
+        z.extractall(installPath)
+    except Exception as err:
+        print('Failed to install ' + addonUrl)
+        print(err)
+
+def installZippedGitRepo(addonUrl, installPath):
+    try:
+        r = requests.get(addonUrl, stream=True)
+        z = zipfile.ZipFile(BytesIO(r.content))
+        with tempfile.TemporaryDirectory() as tempDirPath:
+            z.extractall(tempDirPath)
+            directories = list(filter(gitZipFilter, z.infolist()))
+            for info in directories:
+                parts = splitall(info.filename)
+                src = os.path.join(tempDirPath, parts[0], parts[1])
+                dst = os.path.join(installPath, parts[1])
+                shutil.rmtree(dst, True)
+                shutil.copytree(src, dst)
+            shutil.rmtree(os.path.join(tempDirPath, z.infolist()[0].filename), True)
+
+    except Exception as err:
+        print('Failed to install ' + addonUrl)
+        print(err)
+
+# This function returns true if the ZipInfo objects references a directory
+# and that directory is one level below the root of the archive and it
+# does not begin with '.'
+def gitZipFilter(zipInfo):
+    if zipInfo.is_dir() == False:
+        return False
+    parts = splitall(zipInfo.filename)
+    if len(parts) != 3:
+        return False
+    if parts[1].startswith('.'):
+        return False
+    return True
+
+def splitall(path):
+    allparts = []
+    while 1:
+        parts = os.path.split(path)
+        if parts[0] == path:  # sentinel for absolute paths
+            allparts.insert(0, parts[0])
+            break
+        elif parts[1] == path: # sentinel for relative paths
+            allparts.insert(0, parts[1])
+            break
+        else:
+            path = parts[0]
+            allparts.insert(0, parts[1])
+    return allparts
 
 # Curse
 
@@ -111,14 +184,26 @@ def getCurseProjectVersion(addonpage):
 # Tukui
 
 def tukui(addonpage):
-    print('Tukui is not supported yet.')
-    return ''
+    try:
+        return addonpage + '/repository/development/archive.zip'
+    except Exception:
+        print('Failed to find downloadable zip file for addon. Skipping...\n')
+        return ''
 
 
 def getTukuiVersion(addonpage):
-    # print('Tukui is not supported yet.')
-    return ''
-
+    try:
+        response = requests.get(addonpage)
+        content = str(response.content)
+        match = re.search('<a\sclass="commit-sha\s[^>]*>(?P<hash>[^<]*)<\/a>', content)
+        result = ''
+        if match:
+            result = match.group('hash')
+        return result
+    except Exception as err:
+        print('Failed to find version number for: ' + addonpage)
+        print(err)
+        return ''
 
 # Wowinterface
 

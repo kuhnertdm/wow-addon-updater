@@ -1,5 +1,4 @@
 import zipfile, configparser
-from io import *
 from os.path import isfile
 import SiteHandler
 import packages.requests as requests
@@ -60,7 +59,7 @@ class AddonUpdater:
                 if not currentVersion == installedVersion:
                     print('Installing/updating addon: ' + line + ' to version: ' + currentVersion + '\n')
                     ziploc = SiteHandler.findZiploc(line)
-                    self.getAddon(ziploc)
+                    SiteHandler.installAddon(ziploc, self.WOW_ADDON_LOCATION)
                     current_node.append(self.getInstalledVersion(line))
                     if currentVersion is not '':
                         self.setInstalledVersion(line, currentVersion)
@@ -75,22 +74,13 @@ class AddonUpdater:
                 print("".join(word.ljust(col_width) for word in row), end='\n')
             confirmExit()
 
-    def getAddon(self, ziploc):
-        if ziploc == '':
-            return
-        try:
-            r = requests.get(ziploc, stream=True)
-            z = zipfile.ZipFile(BytesIO(r.content))
-            z.extractall(self.WOW_ADDON_LOCATION)
-        except Exception:
-            print('Failed to download or extract zip file for addon. Skipping...\n')
-            return
-
     def getInstalledVersion(self, addonpage):
         addonName = addonpage.replace('https://mods.curse.com/addons/wow/', '')
         addonName = addonName.replace('https://www.curseforge.com/wow/addons/', '')
         addonName = addonName.replace('https://wow.curseforge.com/projects/', '')
         addonName = addonName.replace('http://www.wowinterface.com/downloads/', '')
+        if(addonName.startswith('https://git.tukui.org/')):
+            addonName = addonName.split("/")[-1]
         installedVers = configparser.ConfigParser()
         installedVers.read(self.INSTALLED_VERS_FILE)
         try:
@@ -103,6 +93,8 @@ class AddonUpdater:
         addonName = addonName.replace('https://www.curseforge.com/wow/addons/', '')
         addonName = addonName.replace('https://wow.curseforge.com/projects/', '')
         addonName = addonName.replace('http://www.wowinterface.com/downloads/', '')
+        if(addonName.startswith('https://git.tukui.org/')):
+            addonName = addonName.split("/")[-1]
         installedVers = configparser.ConfigParser()
         installedVers.read(self.INSTALLED_VERS_FILE)
         installedVers.set('Installed Versions', addonName, currentVersion)
