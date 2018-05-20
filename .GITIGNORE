@@ -7,3 +7,5 @@ installed.txt
 
 # Compiled pyc files
 __pycache__/
+.vscode/
+desktop.ini

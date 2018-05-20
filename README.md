@@ -4,6 +4,8 @@ This utility provides an alternative to the Twitch/Curse client for management a
 
 ## Changelog
 
+* 5/20/2018 (My apologies for the wait, have finally finished classes forever) - Fixed various issues with Curse URLs and redirects, added WowAce support, better error handling. MAJOR thanks to https://github.com/zurohki for this!
+
 * 2/27/2018 - More consistent conversion of old Curse URLs. Thanks to https://github.com/zurohki for this!
 
 * 2/27/2018 - Added formatted table of updated addons and added comment support in the in.txt file (Will ignore lines beginning with the hash character #). Thanks to https://github.com/helpfuljohn for this!
