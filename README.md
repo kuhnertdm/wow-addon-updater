@@ -1,8 +1,10 @@
-# wow-addon-updater - Now supports new CurseForge site!
+# wow-addon-updater - Now supports Tukui!
 
 This utility provides an alternative to the Twitch/Curse client for management and updating of addons for World of Warcraft. The Twitch/Curse client is rather bloated and buggy, and comes with many features that most users will not ever use in the first place. This utility, however, is lightweight and makes it very easy to manage which addons are being updated, and to update them just by running a python script.
 
 ## Changelog
+
+* 6/8/2018 - Added support for Tukui repos, as well as an option to extract the subfolder of a mod folder (see changes to Input File Format section below). Thanks to https://github.com/Fezzik for assistance with this!
 
 * 5/20/2018 (My apologies for the wait, have finally finished classes forever) - Fixed various issues with Curse URLs and redirects, added WowAce support, better error handling. MAJOR thanks to https://github.com/zurohki for this!
 
@@ -51,6 +53,12 @@ Whatever file you use for your list of mods needs to be formatted in a particula
     
     
 Each link needs to be the main page for the addon, as shown above.
+
+If you want to extract a subfolder from the default downloaded folder (typically needed with Tukui addons), add a pipe character (|) and the name of the subfolder at the end of the line. For example, the ElvUI addon can be added as follows:
+
+    https://git.tukui.org/elvui/elvui|ElvUI
+
+because the downloadable zip from this website contains a subfolder called "ElvUI" containing the actual mod.
 
 ## macOS Installation Instructions - Thanks to https://github.com/melwan
 
