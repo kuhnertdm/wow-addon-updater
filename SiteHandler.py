@@ -1,5 +1,5 @@
 import packages.requests as requests
-
+import re
 
 # Site splitter
 
@@ -27,7 +27,7 @@ def findZiploc(addonpage):
             return wowAceProject(addonpage)
 
     # Tukui
-    elif addonpage.startswith('http://git.tukui.org/'):
+    elif addonpage.startswith('https://git.tukui.org/'):
         return tukui(addonpage)
 
     # Wowinterface
@@ -55,7 +55,7 @@ def getCurrentVersion(addonpage):
         return getWowAceProjectVersion(addonpage)
 
     # Tukui
-    elif addonpage.startswith('http://git.tukui.org/'):
+    elif addonpage.startswith('https://git.tukui.org/'):
         return getTukuiVersion(addonpage)
 
     # Wowinterface
@@ -68,12 +68,12 @@ def getCurrentVersion(addonpage):
 
 
 def getAddonName(addonpage):
-    # Might actually read names from web pages later
     addonName = addonpage.replace('https://mods.curse.com/addons/wow/', '')
     addonName = addonName.replace('https://www.curseforge.com/wow/addons/', '')
     addonName = addonName.replace('https://wow.curseforge.com/projects/', '')
     addonName = addonName.replace('http://www.wowinterface.com/downloads/', '')
     addonName = addonName.replace('https://www.wowace.com/projects/', '')
+    addonName = addonName.replace('https://git.tukui.org/', '')
     if addonName.endswith('/files'):
         addonName = addonName[:-6]
     return addonName
@@ -229,13 +229,26 @@ def getWowAceProjectVersion(addonpage):
 # Tukui
 
 def tukui(addonpage):
-    print('Tukui is not supported yet.')
-    return ''
+    try:
+        return addonpage + '/repository/development/archive.zip'
+    except Exception:
+        print('Failed to find downloadable zip file for addon. Skipping...\n')
+        return ''
 
 
 def getTukuiVersion(addonpage):
-    # print('Tukui is not supported yet.')
-    return ''
+    try:
+        response = requests.get(addonpage)
+        content = str(response.content)
+        match = re.search('<a\sclass="commit-sha\s[^>]*>(?P<hash>[^<]*)<\/a>', content)
+        result = ''
+        if match:
+            result = match.group('hash')
+        return result.strip()
+    except Exception as err:
+        print('Failed to find version number for: ' + addonpage)
+        print(err)
+        return ''
 
 
 # Wowinterface
