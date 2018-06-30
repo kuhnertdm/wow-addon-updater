@@ -4,6 +4,8 @@ This utility provides an alternative to the Twitch/Curse client for management a
 
 ## Changelog
 
+* 6/30/2018 - Added license information. This shouldn't really affect anyone's use of or contributions to the project.
+
 * 6/8/2018 - Added support for Tukui repos, as well as an option to extract the subfolder of a mod folder (see changes to Input File Format section below). Thanks to https://github.com/Fezzik for assistance with this!
 
 * 5/20/2018 (My apologies for the wait, have finally finished classes forever) - Fixed various issues with Curse URLs and redirects, added WowAce support, better error handling. MAJOR thanks to https://github.com/zurohki for this!
