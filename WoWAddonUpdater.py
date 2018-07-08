@@ -105,7 +105,11 @@ class AddonUpdater:
                     zip.extractall(tempDirPath)
                     extractedFolderPath = join(tempDirPath, listdir(tempDirPath)[0])
                     subfolderPath = join(extractedFolderPath, subfolder)
-                    shutil.copytree(subfolderPath, join(self.WOW_ADDON_LOCATION, subfolder))
+                    destination_dir = join(self.WOW_ADDON_LOCATION, subfolder)
+                    # Delete the existing copy, as shutil.copytree will not work if
+                    # the destination directory already exists!
+                    shutil.rmtree(destination_dir, ignore_errors=True)
+                    shutil.copytree(subfolderPath, destination_dir)
             except Exception as ex:
                 print('Failed to get subfolder ' + subfolder)
 
