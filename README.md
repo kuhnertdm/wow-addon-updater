@@ -4,6 +4,8 @@ This utility provides an alternative to the Twitch/Curse client for management a
 
 ## Changelog
 
+* 8/7/2018 - Fixed broken TukUI/ElvUI downloads since they redesigned their site.
+
 * 6/30/2018 - Added license information. This shouldn't really affect anyone's use of or contributions to the project.
 
 * 6/8/2018 - Added support for Tukui repos, as well as an option to extract the subfolder of a mod folder (see changes to Input File Format section below). Thanks to https://github.com/Fezzik for assistance with this!
