@@ -230,7 +230,7 @@ def getWowAceProjectVersion(addonpage):
 
 def tukui(addonpage):
     try:
-        return addonpage + '/repository/development/archive.zip'
+        return addonpage + '/-/archive/master/elvui-master.zip'
     except Exception:
         print('Failed to find downloadable zip file for addon. Skipping...\n')
         return ''
@@ -240,7 +240,7 @@ def getTukuiVersion(addonpage):
     try:
         response = requests.get(addonpage)
         content = str(response.content)
-        match = re.search('<a\sclass="commit-sha\s[^>]*>(?P<hash>[^<]*)<\/a>', content)
+        match = re.search(r'<div class="commit-sha-group">\\n<div class="label label-monospace">\\n(?P<hash>[^<]+?)\\n</div>', content)
         result = ''
         if match:
             result = match.group('hash')
