@@ -86,7 +86,7 @@ def curse(addonpage):
         return curseDatastore(addonpage)
     try:
         page = requests.get(addonpage + '/download')
-        page.raise_for_status()
+        page.raise_for_status()   # Raise an exception for HTTP errors
         contentString = str(page.content)
         indexOfZiploc = contentString.find('download__link') + 22  # Will be the index of the first char of the url
         endQuote = contentString.find('"', indexOfZiploc)  # Will be the index of the ending quote after the url
@@ -99,7 +99,7 @@ def curseDatastore(addonpage):
     try:
         # First, look for the URL of the project file page
         page = requests.get(addonpage)
-        page.raise_for_status()
+        page.raise_for_status()   # Raise an exception for HTTP errors
         contentString = str(page.content)
         endOfProjectPageURL = contentString.find('">Visit Project Page')
         indexOfProjectPageURL = contentString.rfind('<a href="', 0, endOfProjectPageURL) + 9
@@ -107,7 +107,7 @@ def curseDatastore(addonpage):
 
         # Then get the project page and get the URL of the first (most recent) file
         page = requests.get(projectPage)
-        page.raise_for_status()
+        page.raise_for_status()   # Raise an exception for HTTP errors
         projectPage = page.url  # We might get redirected, need to know where we ended up.
         contentString = str(page.content)
         startOfTable = contentString.find('project-file-name-container')
@@ -128,7 +128,7 @@ def convertOldCurseURL(addonpage):
         # name and URL is, just try to load the old URL and see where Curse redirects us to. We can guess at
         # the new URL, but they should know their own renaming scheme better than we do.
         page = requests.get(addonpage)
-        page.raise_for_status()
+        page.raise_for_status()   # Raise an exception for HTTP errors
         return page.url
     except Exception:
         print('Failed to find the current page for old URL "' + addonpage + '". Skipping...\n')
@@ -143,7 +143,7 @@ def getCurseVersion(addonpage):
         return getCurseDatastoreVersion(addonpage)
     try:
         page = requests.get(addonpage + '/files')
-        page.raise_for_status()
+        page.raise_for_status()   # Raise an exception for HTTP errors
         contentString = str(page.content)
         indexOfVer = contentString.find('file__name full') + 17  # first char of the version string
         endTag = contentString.find('</span>', indexOfVer)  # ending tag after the version string
@@ -156,7 +156,7 @@ def getCurseDatastoreVersion(addonpage):
     try:
         # First, look for the URL of the project file page
         page = requests.get(addonpage)
-        page.raise_for_status()
+        page.raise_for_status()   # Raise an exception for HTTP errors
         contentString = str(page.content)
         endOfProjectPageURL = contentString.find('">Visit Project Page')
         indexOfProjectPageURL = contentString.rfind('<a href="', 0, endOfProjectPageURL) + 9
@@ -175,7 +175,7 @@ def curseProject(addonpage):
         # Apparently the Curse project pages are sometimes sending people to WowAce now.
         # Check if the URL forwards to WowAce and use that URL instead.
         page = requests.get(addonpage)
-        page.raise_for_status()
+        page.raise_for_status()   # Raise an exception for HTTP errors
         if page.url.startswith('https://www.wowace.com/projects/'):
             return wowAceProject(page.url)
         return addonpage + '/files/latest'
@@ -191,7 +191,7 @@ def getCurseProjectVersion(addonpage):
             # Maybe the project page got moved to WowAce?
             page = requests.get(addonpage)
             page = requests.get(page.url + '/files')
-            page.raise_for_status()
+            page.raise_for_status()   # Raise an exception for HTTP errors
         contentString = str(page.content)
         startOfTable = contentString.find('project-file-list-item')
         indexOfVer = contentString.find('data-name="', startOfTable) + 11  # first char of the version string
@@ -215,7 +215,7 @@ def wowAceProject(addonpage):
 def getWowAceProjectVersion(addonpage):
     try:
         page = requests.get(addonpage + '/files')
-        page.raise_for_status()
+        page.raise_for_status()   # Raise an exception for HTTP errors
         contentString = str(page.content)
         startOfTable = contentString.find('project-file-list-item')
         indexOfVer = contentString.find('data-name="', startOfTable) + 11  # first char of the version string
@@ -239,6 +239,7 @@ def tukui(addonpage):
 def getTukuiVersion(addonpage):
     try:
         response = requests.get(addonpage)
+        response.raise_for_status()   # Raise an exception for HTTP errors
         content = str(response.content)
         match = re.search(r'<div class="commit-sha-group">\\n<div class="label label-monospace">\\n(?P<hash>[^<]+?)\\n</div>', content)
         result = ''
@@ -257,7 +258,7 @@ def wowinterface(addonpage):
     downloadpage = addonpage.replace('info', 'download')
     try:
         page = requests.get(downloadpage + '/download')
-        page.raise_for_status()
+        page.raise_for_status()   # Raise an exception for HTTP errors
         contentString = str(page.content)
         indexOfZiploc = contentString.find('Problems with the download? <a href="') + 37  # first char of the url
         endQuote = contentString.find('"', indexOfZiploc)  # ending quote after the url
@@ -270,7 +271,7 @@ def wowinterface(addonpage):
 def getWowinterfaceVersion(addonpage):
     try:
         page = requests.get(addonpage)
-        page.raise_for_status()
+        page.raise_for_status()   # Raise an exception for HTTP errors
         contentString = str(page.content)
         indexOfVer = contentString.find('id="version"') + 22  # first char of the version string
         endTag = contentString.find('</div>', indexOfVer)  # ending tag after the version string
