@@ -111,7 +111,7 @@ class AddonUpdater:
                     # the destination directory already exists!
                     shutil.rmtree(destination_dir, ignore_errors=True)
                     shutil.copytree(subfolderPath, destination_dir)
-            except Exception as ex:
+            except Exception:
                 print('Failed to get subfolder ' + subfolder)
 
     def getInstalledVersion(self, addonpage):

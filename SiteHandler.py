@@ -190,7 +190,8 @@ def getCurseProjectVersion(addonpage):
         if page.status_code == 404:
             # Maybe the project page got moved to WowAce?
             page = requests.get(addonpage)
-            page = requests.get(page.url + '/files')
+            page.raise_for_status() # Raise an exception for HTTP errors
+            page = requests.get(page.url + '/files') # page.url refers to the place where the last one redirected to
             page.raise_for_status()   # Raise an exception for HTTP errors
         contentString = str(page.content)
         startOfTable = contentString.find('project-file-list-item')
