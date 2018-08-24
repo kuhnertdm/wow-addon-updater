@@ -89,6 +89,7 @@ class AddonUpdater:
             return False
         try:
             r = requests.get(ziploc, stream=True)
+            r.raise_for_status()   # Raise an exception for HTTP errors
             z = zipfile.ZipFile(BytesIO(r.content))
             self.extract(z, ziploc, subfolder)
             return True
