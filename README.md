@@ -2,27 +2,7 @@
 
 This utility provides an alternative to the Twitch/Curse client for management and updating of addons for World of Warcraft. The Twitch/Curse client is rather bloated and buggy, and comes with many features that most users will not ever use in the first place. This utility, however, is lightweight and makes it very easy to manage which addons are being updated, and to update them just by running a python script.
 
-## Changelog
-
-* 8/7/2018 - Fixed broken TukUI/ElvUI downloads since they redesigned their site.
-
-* 6/30/2018 - Added license information. This shouldn't really affect anyone's use of or contributions to the project.
-
-* 6/8/2018 - Added support for Tukui repos, as well as an option to extract the subfolder of a mod folder (see changes to Input File Format section below). Thanks to https://github.com/Fezzik for assistance with this!
-
-* 5/20/2018 (My apologies for the wait, have finally finished classes forever) - Fixed various issues with Curse URLs and redirects, added WowAce support, better error handling. MAJOR thanks to https://github.com/zurohki for this!
-
-* 2/27/2018 - More consistent conversion of old Curse URLs. Thanks to https://github.com/zurohki for this!
-
-* 2/27/2018 - Added formatted table of updated addons and added comment support in the in.txt file (Will ignore lines beginning with the hash character #). Thanks to https://github.com/helpfuljohn for this!
-
-* 2/27/2018 - Added support for Curse Projects. Thanks to https://github.com/Delduwath for this!
-
-* 2/27/2018 - Fixed crash if any blank lines in the input file. Thanks to https://github.com/SeamusConnor for this!
-
-* 11/17/2017 - Fixed compatability issues with new CurseForge site. Also backwards-compatible with old URLs still left in the input file. Major thanks to https://github.com/lithium720 for letting me know about this (as I'm currently on an extended break from WoW) and https://github.com/adrien-martin for contributing to the fix.
-
-* 7/2/2017 - Fixed bug that would cause the app to crash after downloading with no previous pip installations (i.e. the import errors)
+Changelog located in changelog.txt
 
 ## First-time setup
 
