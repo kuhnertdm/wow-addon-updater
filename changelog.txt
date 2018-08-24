@@ -1,5 +1,7 @@
 Changelog
 
+* 8/24/2018 - Added update message to notify if a new version of WoWAddonUpdater is available
+
 * 8/24/2018 - Added subfolder information to installed.txt - Should now allow multiple lines with different subfolders from the same addon
 
 * 8/24/2018 - Added extra error checking for page responses - Should fix some issues with ugly error page HTML text being spit out

@@ -139,6 +139,16 @@ class AddonUpdater:
 
 
 def main():
+    if(isfile('changelog.txt')):
+        downloadedChangelog = requests.get('https://raw.githubusercontent.com/kuhnerdm/wow-addon-updater/master/changelog.txt').text.split('\n')
+        with open('changelog.txt') as cl:
+            presentChangelog = cl.readlines()
+            for i in range(len(presentChangelog)):
+                presentChangelog[i] = presentChangelog[i].strip('\n')
+
+    if(downloadedChangelog != presentChangelog):
+        print('A new update to WoWAddonUpdater is available! Check it out at https://github.com/kuhnerdm/wow-addon-updater !')
+    
     addonupdater = AddonUpdater()
     addonupdater.update()
     return
