@@ -64,15 +64,15 @@ class AddonUpdater:
                     currentVersion = 'Not Available'
                 current_node.append(addonName)
                 current_node.append(currentVersion)
-                installedVersion = self.getInstalledVersion(line)
+                installedVersion = self.getInstalledVersion(line, subfolder)
                 if not currentVersion == installedVersion:
                     print('Installing/updating addon: ' + addonName + ' to version: ' + currentVersion + '\n')
                     ziploc = SiteHandler.findZiploc(line)
                     install_success = False
                     install_success = self.getAddon(ziploc, subfolder)
-                    current_node.append(self.getInstalledVersion(line))
-                    if install_success is True and currentVersion is not '':
-                        self.setInstalledVersion(line, currentVersion)
+                    current_node.append(self.getInstalledVersion(line, subfolder))
+                    if install_success and (currentVersion is not ''):
+                        self.setInstalledVersion(line, subfolder, currentVersion)
                 else:
                     print(addonName + ' version ' + currentVersion + ' is up to date.\n')
                     current_node.append("Up to date")
@@ -114,20 +114,26 @@ class AddonUpdater:
             except Exception:
                 print('Failed to get subfolder ' + subfolder)
 
-    def getInstalledVersion(self, addonpage):
+    def getInstalledVersion(self, addonpage, subfolder):
         addonName = SiteHandler.getAddonName(addonpage)
         installedVers = configparser.ConfigParser()
         installedVers.read(self.INSTALLED_VERS_FILE)
         try:
-            return installedVers['Installed Versions'][addonName]
+            if(subfolder):
+                return installedVers['Installed Versions'][addonName + '|' + subfolder] # Keep subfolder info in installed listing
+            else:
+                return installedVers['Installed Versions'][addonName]
         except Exception:
             return 'version not found'
 
-    def setInstalledVersion(self, addonpage, currentVersion):
+    def setInstalledVersion(self, addonpage, subfolder, currentVersion):
         addonName = SiteHandler.getAddonName(addonpage)
         installedVers = configparser.ConfigParser()
         installedVers.read(self.INSTALLED_VERS_FILE)
-        installedVers.set('Installed Versions', addonName, currentVersion)
+        if(subfolder):
+            installedVers.set('Installed Versions', addonName + '|' + subfolder, currentVersion) # Keep subfolder info in installed listing
+        else:
+            installedVers.set('Installed Versions', addonName, currentVersion)
         with open(self.INSTALLED_VERS_FILE, 'w') as installedVersFile:
             installedVers.write(installedVersFile)
 
